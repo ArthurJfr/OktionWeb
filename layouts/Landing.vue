@@ -1,12 +1,14 @@
 <template>
- 
-  </template>
+  <div class="social">
+    social
+  </div>
+</template>
   
   <script>
-import LandingNav from '~/components/LandingNav.vue';
+import LandingNav from '~/components/landings/LandingNav.vue';
   
   export default {
-    
+    name : 'Landing',
     components: {
         LandingNav
     }
@@ -14,6 +16,9 @@ import LandingNav from '~/components/LandingNav.vue';
   </script>
   
   <style scoped>
-
+  .social{
+    position: absolute ;
+    bottom: 0;
+  }
   </style>
   

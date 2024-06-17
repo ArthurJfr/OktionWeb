@@ -3,7 +3,7 @@
 
     --primary-color : #14274A;
 
-    --bkack-color : #000;
+    --black-color : #000;
 }
 
 body {
@@ -11,4 +11,11 @@ body {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+}
+.slog{
+    font-size: 64px;
+    color : var(--primary-color);
+    font-weight: bold;
+    margin: 0;
+
 }
