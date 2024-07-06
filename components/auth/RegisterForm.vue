@@ -34,7 +34,7 @@
         this.errors = {};
 
         if (!this.form.username) {
-        this.errors.username = 'Username is required';
+        this.errors.username = 'Nom d\'utilisateur requis';
         } else if (this.form.username.length < 3 || this.form.username.length > 20) {
         this.errors.username = 'Username must be between 3 and 20 characters';
         } 
@@ -61,14 +61,16 @@
       async register() {
         if (this.validateForm()) {
         try {
-          //const response = await axios.post('http://localhost:3000/auth/register', {
-          //  username: this.form.username,
-           // email: this.form.email,
-            //password: this.form.password
+          const response = await axios.post('http://localhost:4000/users/create', {
+            username: this.form.username,
+            email: this.form.email,
+            password: this.form.password
           
-          this.$router.push('/login');
+          });
+          console.log('Register successful', response.data);
+          this.$router.push('/auth/login');
         } catch (error) {
-
+          console.log("No registered");
           console.error(error);
           if (error.response && error.response.data && error.response.data.message) {
             this.errors.server = error.response.data.message;

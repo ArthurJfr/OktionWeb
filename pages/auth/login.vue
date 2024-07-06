@@ -3,7 +3,7 @@
     <LandingNav buttonText="S'inscrire" buttonLink="/auth/register"  />
         <div class="hero-login">
             <div class="leftLogin">
-                <ThreeDModel modelUrl="/_nuxt/assets/models/01b0af5b6eca73914a044ac547bbe2d7.gltf" />
+                <!-- <ThreeDModel modelUrl="/_nuxt/assets/models/01b0af5b6eca73914a044ac547bbe2d7.gltf" /> -->
 
             </div>
             <div class="rightLogin">
@@ -22,7 +22,7 @@
 import Vue from 'vue';
 import LandingNav from '~/components/landings/LandingNav.vue';
 import LoginForm from '~/components/auth/LoginForm.vue';
-import ThreeDModel from '~/components/ThreeDModel.vue';
+//import ThreeDModel from '~/components/ThreeDModel.vue';
 
 
 
@@ -33,7 +33,7 @@ name: 'Login',
 components : {
     LandingNav,
     LoginForm,
-    ThreeDModel
+    //ThreeDModel
 },
 created() {
     console.log("Chemin du modèle:", require('~/assets/threeD/glass_loader.gltf'));

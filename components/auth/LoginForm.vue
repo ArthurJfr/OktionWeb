@@ -26,9 +26,9 @@
     methods: {
       async login() {
         try {
-         // const response = await axios.post('http://localhost:3000/auth/login', this.form);
-          //const token = response.data.token;
-          //localStorage.setItem('token', token);
+          const response = await axios.post('http://localhost:4000/auth/login', this.form);
+          const token = response.data.token;
+          localStorage.setItem('token', token);
           this.$router.push('/');
         } catch (error) {
           console.error(error);
