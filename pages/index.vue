@@ -16,6 +16,7 @@ import HeroHome from '~/components/landings/HeroHome.vue';
 
 export default Vue.extend({
   name: 'IndexPage',
+  middleware: 'redirectIfAuthenticated',
   components : {
     LandingNav,
     HeroHome,

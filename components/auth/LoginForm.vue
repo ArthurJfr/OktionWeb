@@ -29,7 +29,7 @@
           const response = await axios.post('http://localhost:4000/auth/login', this.form);
           const token = response.data.token;
           localStorage.setItem('token', token);
-          this.$router.push('/');
+          this.$router.push('/dashboard/overview');
         } catch (error) {
           console.error(error);
           // Handle login error (e.g., show error message)
