@@ -28,7 +28,12 @@
         try {
           const response = await axios.post('http://localhost:4000/auth/login', this.form);
           const token = response.data.token;
+
+          const expiryDate = new Date().getTime() + 24 * 60 * 60 * 1000;
+
           localStorage.setItem('token', token);
+          localStorage.setItem('expiryDate', expiryDate);
+
           this.$router.push('/dashboard/overview');
         } catch (error) {
           console.error(error);

@@ -4,56 +4,65 @@
         <ul>
             
           <li>
-            <nuxt-link to="/dashboard/overview">
+            <nuxt-link class="txtnav" to="/dashboard/overview">
               Accueil
             </nuxt-link>
           </li>
           <li >
-            <nuxt-link to="/dashboard/auctions">
+            <nuxt-link class="txtnav" to="/dashboard/auctions">
               Enchères
             </nuxt-link>
           </li>
           <li >
-            <nuxt-link to="/dashboard/sales">
+            <nuxt-link class="txtnav" to="/dashboard/sales">
               Mes ventes
             </nuxt-link>
           </li>
           <li >
-            <nuxt-link to="/dashboard/new">
+            <nuxt-link class="txtnav" to="/dashboard/new">
               Nouveautés
             </nuxt-link>
           </li>
           <li >
-            <nuxt-link to="/dashboard/friends">
+            <nuxt-link class="txtnav" to="/dashboard/friends">
               Amis
             </nuxt-link>
           </li>
           <li >
-            <nuxt-link to="/dashboard/settings">
+            <nuxt-link class="txtnav" to="/dashboard/settings">
               Paramètre
             </nuxt-link>
           </li>
         </ul>
         <div class="logout">
-          <nuxt-link to="/logout">
+          <button class="txtnav" @click="showConfirmation" >
             Déconnexion
-          </nuxt-link>
+          </button>
         </div>
+        <Modal :visible="isModalVisible" @close="hideConfirmation">
+          <p>Etes-vous sûr de vouloir vous déconnecter ?</p>
+          <button  @click="logout">Se déconnecter</button>
+          <button @click="hideConfirmation">Annuler</button>
+        </Modal>
       </div>
   </template>
   
   <script>
 
   import OktionLogo from "./landings/OktionLogo";
+  import Modal from "./Modal";
+
   export default {
     name: 'Sidebar',
     data() {
       return {
-        isOpen: false
+        isOpen: false,
+        isModalVisible : false
       };
     },
     components : {
-        OktionLogo
+        OktionLogo,
+        Modal
     },
     methods: {
       toggleSidebar() {
@@ -61,7 +70,21 @@
       },
       isActive(path) {
         return this.$route.path === path;
-      }
+      },
+      showConfirmation() {
+      this.isModalVisible = true;
+    },
+    hideConfirmation() {
+      this.isModalVisible = false;
+    },
+    logout() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('expiryDate');
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('expiryDate');
+      this.$router.push('/auth/login');
+    },
+
     }
   };
   </script>
@@ -91,7 +114,12 @@
   }
   
 
-  
+  .logoutbtn{
+    border: none;
+    background-color: var(--primary-color);
+    color: #FFF;
+    cursor: pointer;
+  }
   
  
   
@@ -107,34 +135,19 @@
   
    ul li a {
     width: 100%;
-    color: #333;
+    color: #7D7D7D;
     text-decoration: none;
     display: flex;
     align-items: center;
-  }
-  
-   ul li.active a {
-    color: #007bff;
-  }
-  
-   ul li a:hover {
-    color: #007bff;
   }
   
   .logout {
     margin-top: auto;
   }
   
-  .logout a {
-    color: #333;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-  }
+
   
-  .logout a:hover {
-    color: #e74c3c;
-  }
+ 
   
   @media (max-width: 768px) {
    

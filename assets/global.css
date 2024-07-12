@@ -19,3 +19,15 @@ body {
     margin: 0;
 
 }
+.txtnav{
+    color: #7D7D7D;
+    background: none;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    font-size: 17px;
+    font-weight: bold;
+}
+.txtnav:hover{
+    color: var(--primary-color);
+}

@@ -2,21 +2,27 @@
     <div class="dashboard">
       <SideBar />
       <div class="main-content">
-        <div class="content">
+        <MainContent>
+
+
+        </MainContent>
+
           <nuxt-child />
-        </div>
       </div>
     </div>
   </template>
   
   <script>
   import SideBar from '@/components/SideBar.vue';
+  import MainContent from '@/components/MainContent.vue';
+
 
   
   export default {
     
     components: {
-      SideBar
+      SideBar,
+      MainContent
     },
   };
   </script>
@@ -29,7 +35,6 @@
   .main-content {
     margin-left: 250px;
     width: calc(100% - 250px);
-    padding-top: 60px;
   }
   
   .content {
