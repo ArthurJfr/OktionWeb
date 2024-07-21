@@ -3,42 +3,42 @@
       <SideBar />
       <div class="main-content">
         <MainContent>
-          <div class="topbar">
-            <h1 class="pagetitle">Enchères</h1>
-          </div>
-          <AuctionsList />
+            <h1 class="pagetitle">Nouveautés</h1>
+           
+
+         
+
         </MainContent>
       </div>
-    >
+     
     </div>
   </template>
   
   <script>
   import SideBar from '@/components/SideBar.vue';
   import MainContent from '@/components/MainContent.vue';
-  import Modal from '@/components/Modal.vue';
+  import FriendsSearch from '@/components/friends/FriendsSearch.vue';
+  import FriendRequest from '@/components/friends/FriendsRequest.vue';
 
+  import FriendsList from '@/components/friends/FriendsList.vue';
+  import Modal from '@/components/Modal.vue';
   import axios from 'axios';
-import AuctionsList from '~/components/auctions/AuctionsList.vue';
   
   export default {
     middleware : 'auth',
     components: {
       SideBar,
-      AuctionsList,
       MainContent,
-      Modal,
+      
     },
     data() {
       return {
-        
-        
-        
-        isAddProductModalVisible: false,
+      
       };
     },
-  
+
     methods: {
+
     },
   };
   </script>
@@ -50,9 +50,8 @@ import AuctionsList from '~/components/auctions/AuctionsList.vue';
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 70px;
   }
- 
+
   .dashboard {
     display: flex;
   }

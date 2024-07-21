@@ -1,23 +1,23 @@
-# oktionweb
+# OktionWeb
 
-## Build Setup
+Ce projet est une plateforme d'enchères fictives en VueJs fonctionnant avec une api NestJs.
 
+Ne pas ouiblier d'installer le projet de l'api également en suivant la doc  => 
+
+## Installation du projet /Setup
+
+Voici les étapes à suivre dans votre terminale :
 ```bash
-# install dependencies
+# Copier le repository
+$ git clone https://github.com/ArthurJfr/OktionWeb.git
+# installer les dépendances
 $ npm install
 
-# serve with hot reload at localhost:3000
+# (une fois api cloné et lancé) Démarrer le serveur local  localhost:3000
 $ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
 ```
 
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
+
 
 ## Special Directories
 

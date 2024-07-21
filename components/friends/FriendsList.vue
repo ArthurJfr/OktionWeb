@@ -1,80 +1,89 @@
 <template>
-    <div>
-      <h2>Mes Amis</h2>
-      <ul>
-        <li v-for="friend in paginatedFriends" :key="friend.id">
-          {{ friend.username }}
-          <button @click="startConversation(friend.id)">Démarrer une conversation</button>
-          <button @click="removeFriend(friend.id)">Supprimer</button>
-        </li>
-      </ul>
-      <div class="pagination">
-        <button @click="prevPage" :disabled="currentPage === 1">Précédent</button>
-        <span>Page {{ currentPage }} sur {{ totalPages }}</span>
-        <button @click="nextPage" :disabled="currentPage === totalPages">Suivant</button>
-      </div>
-    </div>
-  </template>
-  
-  <script>
-  export default {
-    props: {
-      friends: {
-        type: Array,
-        required: true
-      },
-      pageSize: {
-        type: Number,
-        default: 20
-      }
-    },
-    data() {
-      return {
-        currentPage: 1
-      };
-    },
-    computed: {
-      totalPages() {
-        return Math.ceil(this.friends.length / this.pageSize);
-      },
-      paginatedFriends() {
-        const start = (this.currentPage - 1) * this.pageSize;
-        const end = this.currentPage * this.pageSize;
-        return this.friends.slice(start, end);
-      }
-    },
-    methods: {
-      startConversation(friendId) {
-        this.$emit('start-conversation', friendId);
-      },
-      removeFriend(friendId) {
-        this.$emit('remove-friend', friendId);
-      },
-      nextPage() {
-        if (this.currentPage < this.totalPages) {
-          this.currentPage += 1;
-        }
-      },
-      prevPage() {
-        if (this.currentPage > 1) {
-          this.currentPage -= 1;
-        }
+  <div>
+    <h1>Liste des amis</h1>
+    <ul v-if="friends.length">
+      <li class="friendList" v-for="friend in friends">
+        <div class="basicsCard friend">
+          <p class="username">{{ friend.username }}</p>
+          <p>{{ friend.role }}</p>
+        </div>
+        <button class="delete" @click="removeFriend(friend.id)">Supprimer</button>
+      </li>
+    </ul>
+    <p v-else>Aucun ami trouvé</p>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      friends: [],
+    };
+  },
+  methods : {
+    async removeFriend(friendId) {
+      try {
+        await this.$axios.delete(`http://localhost:4000/friends/remove/${friendId}`);
+        this.friends = this.friends.filter(friend => friend.id !== friendId);
+        console.log(`Ami avec l'ID ${friendId} supprimé.`);
+      } catch (error) {
+        console.error(`Erreur lors de la suppression de l'ami avec l'ID ${friendId}:`, error);
       }
     }
-  };
-  </script>
-  
-  <style scoped>
-  .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  .pagination button {
-    margin: 0 10px;
-    padding: 5px 10px;
-  }
-  </style>
-‡  
+  },
+  async created() {
+    if(process.client){
+         try {
+      const response = await this.$axios.get('http://localhost:4000/friends');
+      this.friends = response.data;
+      console.log(this.friends);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des amis:', error);
+    }
+    }
+ 
+  },
+};
+</script>
+
+<style scoped>
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+.username  {
+   color: var(--primary-color);
+}
+.friendList{
+
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  align-items: center;
+  transition: all 0.5s;
+  width: 80%;
+
+}
+.friend{
+  display: flex;
+  width: 80%;
+  flex-direction: row;
+  justify-content: space-between;
+  cursor: pointer;
+ 
+}
+.friendList:hover{
+  z-index: 1000;
+  transform: scale(1.05);
+  margin-top: 25px;
+  margin-left: 30px;
+}
+p {
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  text-align: center;
+  color: #888;
+}
+</style>

@@ -19,8 +19,60 @@ body {
     margin: 0;
 
 }
+
+.actionButton{
+    width: 150px;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    background-color: var(--primary-color);
+    height: 35px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 10px;
+    transition-duration: 0.5s;
+
+}
+.delete{
+    width: 150px;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    height: 35px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 10px;
+    transition-duration: 0.5s;
+    background-color: red;
+
+  }
+.delete:hover{
+    background-color: var(--black-color);
+}
+.actionButton:hover{
+    background-color: var(--black-color);
+
+}
+textarea {
+    resize: none;
+}
+.basicsCard {
+   padding: 10px;
+   background-color: #ffffff; 
+   border-radius: 16px;
+   -webkit-box-shadow: 0px 3px 10px 4px rgba(0,0,0,0.3); 
+   box-shadow: 0px 3px 10px 4px rgba(0,0,0,0.3);
+}
+.pagetitle {
+
+    font-size: 27px;
+    color: var(--primary-color);
+}
 .txtnav{
     color: #7D7D7D;
+    height: 35px;
     background: none;
     outline: none;
     cursor: pointer;

@@ -22,6 +22,7 @@ import RegisterForm from '~/components/auth/RegisterForm.vue';
 
 export default Vue.extend({
 name: 'Register',
+middleware: 'redirectIfAuthenticated',
 components : {
     LandingNav, 
     RegisterForm

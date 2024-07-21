@@ -30,6 +30,7 @@ import LoginForm from '~/components/auth/LoginForm.vue';
 
 export default Vue.extend({
 name: 'Login',
+middleware: 'redirectIfAuthenticated',
 components : {
     LandingNav,
     LoginForm,

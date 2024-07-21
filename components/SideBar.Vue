@@ -5,32 +5,37 @@
             
           <li>
             <nuxt-link class="txtnav" to="/dashboard/overview">
-              Accueil
+             <font-awesome-icon :icon="['fas', 'house']" /><p class="gapicon">Accueil</p>
             </nuxt-link>
           </li>
           <li >
             <nuxt-link class="txtnav" to="/dashboard/auctions">
-              Enchères
+               <font-awesome-icon :icon="['fas', 'layer-group']" /><p  class="gapicon">Enchères</p>
             </nuxt-link>
           </li>
           <li >
-            <nuxt-link class="txtnav" to="/dashboard/sales">
-              Mes ventes
+            <nuxt-link class="txtnav" to="/dashboard/mysales">
+              <font-awesome-icon :icon="['fas', 'chart-pie']" /><p class="gapicon">Mes ventes</p> 
             </nuxt-link>
           </li>
           <li >
-            <nuxt-link class="txtnav" to="/dashboard/new">
-              Nouveautés
+            <nuxt-link class="txtnav" to="/dashboard/news">
+              <font-awesome-icon :icon="['fas', 'bell']" /><p class="gapicon">Nouveautés</p> 
             </nuxt-link>
           </li>
           <li >
             <nuxt-link class="txtnav" to="/dashboard/friends">
-              Amis
+              <font-awesome-icon :icon="['fas', 'users']" /><p class="gapicon">Amis</p> 
             </nuxt-link>
           </li>
           <li >
             <nuxt-link class="txtnav" to="/dashboard/settings">
-              Paramètre
+              <font-awesome-icon :icon="['fas', 'gears']" /><p class="gapicon">Paramètre</p>
+            </nuxt-link>
+          </li>
+          <li >
+            <nuxt-link class="txtnav" to="/dashboard/products">
+              <font-awesome-icon :icon="['fas', 'tag']" /><p class="gapicon">Mes produits</p>
             </nuxt-link>
           </li>
         </ul>
@@ -78,11 +83,18 @@
       this.isModalVisible = false;
     },
     logout() {
-      localStorage.removeItem('token');
-      localStorage.removeItem('expiryDate');
-      sessionStorage.removeItem('token');
-      sessionStorage.removeItem('expiryDate');
-      this.$router.push('/auth/login');
+      try {
+        localStorage.removeItem('token');
+        localStorage.clear();
+        localStorage.removeItem('expiryDate');
+        localStorage.clear();
+
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('expiryDate');
+        this.$router.push('/auth/login');
+      } catch (err) {
+        alert(err);
+      }
     },
 
     }
@@ -103,6 +115,7 @@
     box-shadow: 0px 0px 49px 0px rgba(0,0,0,0.47);
     position: fixed;
     display: flex;
+    justify-content: space-between;
     flex-direction: column;
     align-items: center;
     top: 0;
@@ -110,9 +123,11 @@
     padding: 20px;
     transition: left 0.5s;
     z-index: 1000;
-   
+    transition: left 0.5s;
   }
-  
+  .gapicon{
+    margin-left: 10px;
+  }
 
   .logoutbtn{
     border: none;
@@ -154,7 +169,7 @@
   
     .container{
       left: -250px;
-      transition: left 0.5s;
+      
     }
   }
   </style>

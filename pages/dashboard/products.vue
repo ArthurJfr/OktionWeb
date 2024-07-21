@@ -4,12 +4,15 @@
       <div class="main-content">
         <MainContent>
           <div class="topbar">
-            <h1 class="pagetitle">Enchères</h1>
+            <h1 class="pagetitle">Mes produits</h1>
+            <button class="actionButton" @click="showAddProductModal">Créer un produit</button>
           </div>
-          <AuctionsList />
+          <ProductsList />
         </MainContent>
       </div>
-    >
+      <Modal :visible="isAddProductModalVisible" @close="hideAddProductModal">
+        <CreateProduct />
+      </Modal>
     </div>
   </template>
   
@@ -17,17 +20,19 @@
   import SideBar from '@/components/SideBar.vue';
   import MainContent from '@/components/MainContent.vue';
   import Modal from '@/components/Modal.vue';
+  import ProductsList from '@/components/auctions/ProductsList.vue';
+  import CreateProduct from '~/components/auctions/CreateProduct.vue';
 
   import axios from 'axios';
-import AuctionsList from '~/components/auctions/AuctionsList.vue';
   
   export default {
     middleware : 'auth',
     components: {
       SideBar,
-      AuctionsList,
       MainContent,
+      ProductsList,
       Modal,
+      CreateProduct
     },
     data() {
       return {
@@ -39,6 +44,12 @@ import AuctionsList from '~/components/auctions/AuctionsList.vue';
     },
   
     methods: {
+      showAddProductModal() {
+        this.isAddProductModalVisible = true;
+      },
+      hideAddProductModal() {
+        this.isAddProductModalVisible = false;
+      },
     },
   };
   </script>

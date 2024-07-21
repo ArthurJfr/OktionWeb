@@ -1,42 +1,19 @@
-<template>
-    <div class="dashboard">
-      <SideBar />
-      <div class="main-content">
-        <MainContent>
-            <h1>Amis</h1>
-            <button @click="showAddFriendModal">Ajouter des amis</button>
-            
-        </MainContent>
-        <Modal :visible="isAddFriendModalVisible" @close="hideAddFriendModal">
-          <FriendSearch />
-        </Modal>
-      </div>
-    </div>
-  </template>
-  
-
-  Voici comment adapter votre fichier friends.vue existant pour inclure les fonctionnalités de demande d'amis avec une modal, tout en utilisant votre structure actuelle :
-
-  pages/dashboard/friends.vue
-  vue
-  Copier le code
   <template>
     <div class="dashboard">
       <SideBar />
       <div class="main-content">
         <MainContent>
-          <h1>Amis</h1>
-          <button @click="showAddFriendModal">Ajouter des amis</button>
-          <FriendRequests 
+          <div class="topbar">
+            <h1 class="pagetitle">Amis</h1>
+            <button class="addFriend" @click="showAddFriendModal">Ajouter</button>
+
+          </div>
+
+          <FriendRequest
             :requests="friendRequests"
             @request-handled="loadFriendRequests"
           />
-          <FriendsList 
-            :friends="friends"
-            @start-conversation="startConversation"
-            @remove-friend="removeFriend"
-            :pageSize="20"
-          />
+          <FriendsList />
         </MainContent>
       </div>
       <Modal :visible="isAddFriendModalVisible" @close="hideAddFriendModal">
@@ -49,16 +26,19 @@
   import SideBar from '@/components/SideBar.vue';
   import MainContent from '@/components/MainContent.vue';
   import FriendsSearch from '@/components/friends/FriendsSearch.vue';
+  import FriendRequest from '@/components/friends/FriendsRequest.vue';
+
   import FriendsList from '@/components/friends/FriendsList.vue';
   import Modal from '@/components/Modal.vue';
   import axios from 'axios';
   
   export default {
+    middleware : 'auth',
     components: {
       SideBar,
       MainContent,
       FriendsSearch,
-    
+      FriendRequest,
       FriendsList,
       Modal,
     },
@@ -67,29 +47,20 @@
         friends: [],
         friendRequests: [],
         searchQuery: '',
-        totalPages: 1,
-        currentPage: 1,
         isAddFriendModalVisible: false,
       };
     },
     async fetch() {
-      await this.loadFriends();
-      await this.loadFriendRequests();
+      if(process.client){
+        await this.loadFriendRequests();
+      }
+        
     },
     methods: {
-      async loadFriends(page = 1) {
-        try {
-          const response = await axios.get(`http://localhost:4000/friends?page=${page}`);
-          this.friends = response.data.friends;
-          this.totalPages = response.data.totalPages;
-          this.currentPage = page;
-        } catch (error) {
-          console.error('Erreur lors du chargement des amis:', error);
-        }
-      },
       async loadFriendRequests() {
+        
         try {
-          const response = await axios.get('http://localhost:4000/friends/requests');
+          const response = await this.$axios.get('http://localhost:4000/friends/requests');
           this.friendRequests = response.data;
         } catch (error) {
           console.error('Erreur lors du chargement des demandes d\'amis:', error);
@@ -97,7 +68,7 @@
       },
       async removeFriend(friendId) {
         try {
-          await axios.delete(`http://localhost:4000/friends/remove/${friendId}`);
+          await this.$axios.delete(`http://localhost:4000/friends/remove/${friendId}`);
           this.loadFriends(this.currentPage);
         } catch (error) {
           console.error('Erreur lors de la suppression de l\'ami:', error);
@@ -117,6 +88,30 @@
   </script>
   
   <style scoped>
+
+  .topbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .addFriend{
+     width: 100px;
+     border: none;
+     color: white;
+     border-radius: 8px;
+     background-color: var(--black-color);
+     height: 35px;
+     cursor: pointer;
+     font-size: 15px;
+     font-weight: bold;
+     padding: 10px;
+     transition-duration: 0.5s;
+  }
+  .addFriend:hover{
+    background-color: var(--primary-color);
+
+ }
   .dashboard {
     display: flex;
   }

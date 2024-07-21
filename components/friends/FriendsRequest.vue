@@ -24,7 +24,7 @@
     methods: {
       async acceptRequest(requestId) {
         try {
-          await axios.post(`http://localhost:4000/friends/accept/${requestId}`);
+          await this.$axios.post(`http://localhost:4000/friends/accept/${requestId}`);
           this.$emit('request-handled');
         } catch (error) {
           console.error('Erreur lors de l\'acceptation de la demande:', error);
@@ -32,7 +32,7 @@
       },
       async declineRequest(requestId) {
         try {
-          await axios.post(`http://localhost:4000/friends/decline/${requestId}`);
+          await this.$axios.post(`http://localhost:4000/friends/decline/${requestId}`);
           this.$emit('request-handled');
         } catch (error) {
           console.error('Erreur lors du refus de la demande:', error);

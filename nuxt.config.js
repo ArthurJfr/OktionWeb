@@ -21,7 +21,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-      '~/plugins/axios.js'
+      '~/plugins/axios.js',
+      '~/plugins/fontawesome.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -41,10 +42,10 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: 'http://localhost:4000', // Remplacez par l'URL de votre API NestJS
+    baseURL: 'http://localhost:4000', 
     credentials: true,
   },
+
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

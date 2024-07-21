@@ -4,12 +4,11 @@
       <div class="main-content">
         <MainContent>
           <div class="topbar">
-            <h1 class="pagetitle">Enchères</h1>
+            <h1 class="pagetitle">Mes ventes</h1>
           </div>
-          <AuctionsList />
         </MainContent>
       </div>
-    >
+ 
     </div>
   </template>
   
@@ -17,28 +16,37 @@
   import SideBar from '@/components/SideBar.vue';
   import MainContent from '@/components/MainContent.vue';
   import Modal from '@/components/Modal.vue';
+  import ProductsList from '@/components/auctions/ProductsList.vue';
+  import CreateProduct from '~/components/auctions/CreateProduct.vue';
 
   import axios from 'axios';
-import AuctionsList from '~/components/auctions/AuctionsList.vue';
   
   export default {
     middleware : 'auth',
     components: {
       SideBar,
-      AuctionsList,
       MainContent,
+      ProductsList,
       Modal,
+      CreateProduct
     },
     data() {
       return {
-        
+        products: [],
         
         
         isAddProductModalVisible: false,
       };
     },
-  
+    async fetch() {
+        await this.loadProducts();
+    },
     methods: {
+      async loadProducts() {
+      
+      },
+
+  
     },
   };
   </script>

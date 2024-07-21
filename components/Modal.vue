@@ -15,11 +15,18 @@
         required: true,
       },
     },
+
     methods: {
       closeModal() {
         this.$emit('close');
       },
     },
+    created() {
+    this.$root.$on('close-modal', this.closeModal);
+  },
+  beforeDestroy() {
+    this.$root.$off('close-modal', this.closeModal);
+  },
   };
   </script>
   

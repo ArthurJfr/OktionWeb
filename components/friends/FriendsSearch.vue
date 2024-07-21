@@ -1,12 +1,13 @@
 <template>
   <div>
     <h1>Ajouter un ami</h1>
-    <Input 
-      v-model="searchQuery" 
-      @keyup.enter="sendFriendRequest" 
-      placeholder="Rechercher un utilisateur" 
-    />
-    <button @click="sendFriendRequest">Envoyer la demande</button>
+    <form @submit.prevent="sendFriendRequest">
+      <Input 
+        v-model="searchQuery" 
+        placeholder="A qui voulez vous l'envoyer ?" 
+      />
+      <button type="submit">Envoyer la demande</button>
+    </form>
     <p v-if="message">{{ message }}</p>
   </div>
 </template>
@@ -28,7 +29,7 @@ export default {
   methods: {
     async sendFriendRequest() {
       try {
-        const response = await axios.post('http://localhost:4000/friends/request', { friendUsername: this.searchQuery });
+        const response = await this.$axios.post('http://localhost:4000/friends/request', { friendUsername: this.searchQuery });
         this.message = 'Demande d\'ami envoyée avec succès!';
       } catch (error) {
         this.message = 'Erreur lors de l\'envoi de la demande d\'ami.';
